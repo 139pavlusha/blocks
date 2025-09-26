@@ -508,5 +508,9 @@
   {
     "name": "npc_dota_hero_don_dimon",
     "id": 146
+  },
+  {
+    "name": "npc_dota_hero_kto_pizdel_na_ursu",
+    "id": 147
   }
 ]
