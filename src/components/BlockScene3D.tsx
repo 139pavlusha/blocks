@@ -1,5 +1,5 @@
 import { Canvas } from '@react-three/fiber'
-import { OrbitControls, Environment } from '@react-three/drei'
+import { OrbitControls, Environment, Edges } from '@react-three/drei'
 import { Block } from '../types'
 import { getColor } from '../utils/colors'
 
@@ -26,8 +26,7 @@ const BlockMesh = ({ block }: { block: Block }) => {
   const { length: L, width: W, height: H, rotation } = block
   const color = getColor(L, W)
 
-  // 2‑D (x,y) — ліво‑верхній кут
-  const pivot = calcCorner(block)          //  y → Z         //  y → Z
+  const pivot = calcCorner(block)
   const [l, h, w] = [rotation % 180 == 0 ? L : W, H, rotation % 180 == 0 ? W : L]
   const cx = pivot[0] + l / 2
   const cz = pivot[1] - h / 2
@@ -37,6 +36,11 @@ const BlockMesh = ({ block }: { block: Block }) => {
     <mesh position={[cx, cz, cy]}>
       <boxGeometry args={[l, h, w]} />
       <meshStandardMaterial color={color} />
+      <Edges
+        scale={1.001}        // злегка “надуває” лінії, аби не мигтіли
+        threshold={15}       // кути >15° → лінія
+        color="#000"
+      />
     </mesh>
   )
 }

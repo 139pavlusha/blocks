@@ -84,6 +84,14 @@ const App = () => {
   const save = () =>
     localStorage.setItem(LS_KEY, JSON.stringify(blocks))
 
+  const download = () => {
+    const blob = new Blob([JSON.stringify(blocks)], { type: 'text/plain' })
+    const link = document.createElement('a')
+    link.href = URL.createObjectURL(blob)
+    link.download = 'blocks.txt'
+    link.click()
+  }
+
   const clear = () => {
     localStorage.removeItem(LS_KEY)
     window.location.reload()
@@ -116,6 +124,7 @@ const App = () => {
         <div style={{ flex: 1, position: 'relative' }}>
           <div style={{ position: 'absolute', top: 16, right: 16, display: 'flex', gap: 8, zIndex: 20 }}>
             <button style={{ padding: '6px 12px', border: 'none', borderRadius: 4, background: 'red', color: '#fff', cursor: 'pointer' }} onClick={clear}>Очистити</button>
+            <button style={{ padding: '6px 12px', border: 'none', borderRadius: 4, background: '#1976d2', color: '#fff', cursor: 'pointer' }} onClick={download}>Скачати</button>
             <button style={{ padding: '6px 12px', border: 'none', borderRadius: 4, background: '#1976d2', color: '#fff', cursor: 'pointer' }} onClick={save}>Зберегти</button>
             <button style={{ padding: '6px 12px', border: 'none', borderRadius: 4, background: view3D ? '#d32f2f' : '#1976d2', color: '#fff', cursor: 'pointer' }} onClick={() => setView3D(!view3D)}>{view3D ? 'Back 2D' : 'View 3D'}</button>
           </div>
@@ -129,6 +138,7 @@ const App = () => {
                 inventoryHeight={INVENTORY_HEIGHT}
                 onUpdate={updateBlock}
                 onMoveToStock={moveToStock}
+                removeBlock={removeBlock}
               />
             </>
           }

@@ -65,7 +65,7 @@ const ControlPanel = ({ onAdd, blocks, currentLayer, removeBlock }: Props) => {
       </div>
 
       <h3>Блоки ({blocks.length})</h3>
-      <ul style={{ listStyle: 'none', padding: 0, maxHeight: 300, overflow: 'auto' }}>
+      <ul style={{ listStyle: 'none', padding: 0, maxHeight: 150, overflow: 'auto' }}>
         {blocks.map(b => (
           <li key={b.id} style={{
             display: 'flex',
@@ -75,7 +75,7 @@ const ControlPanel = ({ onAdd, blocks, currentLayer, removeBlock }: Props) => {
             borderBottom: '1px dashed #ddd',
             fontSize: 14
           }}>
-            <span>{b.length}×{b.width} ({b.inStock ? 'Інвертар' : `шар ${b.layer}`})</span>
+            <span>{b.length}×{b.width} ({b.inStock ? 'Інвертар' : `шар ${b.layer + 1}`})</span>
             <span onClick={() => removeBlock(b)} style={{ color: 'red', cursor: 'pointer' }}>X</span>
           </li>
         ))}
